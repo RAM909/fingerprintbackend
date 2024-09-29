@@ -23,6 +23,7 @@ mongoose.connect(process.env.STAGING_DB_URL, {
 // POST route to save attendance
 app.post('/attendance', async (req, res) => {
     const { date, timeslot, rollnoofstudentpresent } = req.body;
+    console.log(req.body);
 
     if (!date || !timeslot || !rollnoofstudentpresent) {
         return res.status(400).json({ message: 'All fields are required' });
@@ -37,6 +38,7 @@ app.post('/attendance', async (req, res) => {
 
         await newAttendance.save();
         res.status(201).json({ message: 'Attendance saved successfully', data: newAttendance });
+        console.log('Attendance saved successfully');
     } catch (error) {
         res.status(500).json({ message: 'Error saving attendance', error });
     }
